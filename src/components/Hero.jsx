@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Download } from 'lucide-react';
+import { ArrowRight, Download, MousePointer2 } from 'lucide-react';
+import Hero3D from './Hero3D';
 
 const Hero = () => {
     const roles = [
@@ -20,21 +21,24 @@ const Hero = () => {
     }, []);
 
     return (
-        <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
-            {/* Background Gradient Orbs */}
-            <div className="absolute top-20 left-10 w-96 h-96 bg-purple-600/30 rounded-full blur-[100px]"></div>
-            <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-600/30 rounded-full blur-[100px]"></div>
+        <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 bg-[#0a0a0a]">
+            {/* Background Gradient Orbs - Enhanced Animation */}
+            <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px] animate-pulse"></div>
+            <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-cyan-600/20 rounded-full blur-[120px] animate-pulse delay-1000"></div>
 
-            <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
                 >
-                    <h2 className="text-xl text-purple-400 font-medium mb-4">Hello, I'm Cahya</h2>
-                    <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight text-white">
-                        I build digital <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">
+                    <div className="inline-block px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 backdrop-blur-sm mb-6">
+                        <span className="text-purple-400 text-sm font-medium tracking-wide">Hello, I'm Cahya</span>
+                    </div>
+
+                    <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight text-white tracking-tight">
+                        I build <span className="italic font-light text-gray-400">digital</span> <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 animate-gradient-x">
                             experiences
                         </span>
                     </h1>
@@ -46,35 +50,43 @@ const Hero = () => {
                             animate={{ y: 0, opacity: 1 }}
                             exit={{ y: -20, opacity: 0 }}
                             transition={{ duration: 0.5 }}
-                            className="text-2xl md:text-3xl text-gray-300 absolute"
+                            className="text-2xl md:text-3xl text-gray-300 absolute font-light"
                         >
-                            I am a {roles[currentRole]}
+                            I am a <span className="font-medium text-white">{roles[currentRole]}</span>
                         </motion.div>
                     </div>
 
                     <div className="flex flex-wrap gap-4">
-                        <button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-full flex items-center gap-2 transition-all hover:scale-105 shadow-lg shadow-purple-600/25">
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="bg-white text-black px-8 py-4 rounded-full flex items-center gap-2 font-medium shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] transition-all"
+                        >
                             View Projects <ArrowRight size={20} />
-                        </button>
-                        <button className="border border-white/20 hover:border-purple-500 hover:text-purple-400 text-gray-300 px-8 py-3 rounded-full flex items-center gap-2 transition-all hover:bg-white/5">
+                        </motion.button>
+                        <motion.button
+                            whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
+                            whileTap={{ scale: 0.95 }}
+                            className="border border-white/20 text-white px-8 py-4 rounded-full flex items-center gap-2 font-medium backdrop-blur-sm transition-all"
+                        >
                             Download CV <Download size={20} />
-                        </button>
+                        </motion.button>
                     </div>
                 </motion.div>
 
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8 }}
-                    className="relative"
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    className="relative flex justify-center lg:justify-end h-full"
                 >
-                    {/* Placeholder for Profile Image */}
-                    <div className="w-full aspect-square max-w-md mx-auto relative group">
-                        <div className="absolute inset-0 bg-gradient-to-tr from-purple-600 to-cyan-600 rounded-3xl transform rotate-6 opacity-30 group-hover:rotate-12 transition-all duration-500 blur-sm"></div>
-                        <div className="absolute inset-0 bg-neutral-900 border border-white/10 rounded-3xl flex items-center justify-center overflow-hidden z-10">
-                            <span className="text-gray-600">Profile Image</span>
-                            {/* <img src="/path/to/profile.jpg" alt="Cahya" className="w-full h-full object-cover" /> */}
-                        </div>
+                    {/* 3D Interactive Element */}
+                    <div className="relative w-full max-w-lg aspect-square">
+                        <Hero3D />
+
+                        {/* Decor elements */}
+                        <div className="absolute -bottom-10 -right-10 w-20 h-20 bg-purple-500/20 blur-xl rounded-full animate-pulse"></div>
+                        <MousePointer2 className="absolute bottom-10 right-10 text-white/20 w-8 h-8 animate-bounce" />
                     </div>
                 </motion.div>
             </div>
